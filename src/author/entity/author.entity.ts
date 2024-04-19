@@ -20,6 +20,6 @@ export class Authors {
     })
     description: string;
 
-    @OneToMany(type => Books, books => books.author)
+    @OneToMany(type => Books, book => book.author)
     books: Books[];
 }

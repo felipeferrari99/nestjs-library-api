@@ -3,17 +3,19 @@ import { Authors } from "./entity/author.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateAuthorDTO } from "./dto/create-author.dto";
+import { Books } from "src/book/entity/book.entity";
 
 @Injectable()
 export class AuthorService {
     constructor(
         @InjectRepository(Authors)
-        private authorsRepository: Repository<Authors>
+        private authorsRepository: Repository<Authors>,
+        @InjectRepository(Books)
+        private booksRepository: Repository<Books>
     ) {}
 
     async create(data: CreateAuthorDTO) {
         const author = this.authorsRepository.create(data)
-
         return this.authorsRepository.save(author)
     }
 
@@ -23,11 +25,10 @@ export class AuthorService {
 
     async show(id: number) {
         await this.exists(id);
-        await this.authorsRepository.findOne({
-            where: { id },
+        return this.authorsRepository.findOne({
+            where: { id: id },
             relations: ["books"]
         })
-        console.log('fkfdjkkdfdl')
     }
 
     async exists(id: number) {

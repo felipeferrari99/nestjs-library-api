@@ -25,7 +25,7 @@ export class Books {
     qty_available: number;
 
     @Column()
-    author: number;
+    author_id: number;
 
     @Column({
         nullable: true
@@ -35,7 +35,7 @@ export class Books {
     @OneToMany(type => Users, users => users.favorite_book)
     favorite: Books[];
 
-    @ManyToOne(() => Authors, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'author' })
-    authors: Authors
+    @ManyToOne(() => Authors, author => author.books)
+    @JoinColumn({ name: 'author_id' })
+    author: Authors
 }
