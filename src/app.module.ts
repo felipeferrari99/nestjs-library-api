@@ -9,6 +9,7 @@ import { Books } from './book/entity/book.entity';
 import { UserModule } from './user/user.module';
 import { AuthorModule } from './author/author.module';
 import { BookModule } from './book/book.module';
+import { Comments } from './comment/entity/comment.entity';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { BookModule } from './book/book.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [Authors, Books, Users],
+      entities: [Authors, Books, Users, Comments],
       synchronize: true
     })
   ],

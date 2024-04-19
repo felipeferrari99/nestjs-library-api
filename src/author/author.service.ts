@@ -3,15 +3,12 @@ import { Authors } from "./entity/author.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateAuthorDTO } from "./dto/create-author.dto";
-import { Books } from "src/book/entity/book.entity";
 
 @Injectable()
 export class AuthorService {
     constructor(
         @InjectRepository(Authors)
         private authorsRepository: Repository<Authors>,
-        @InjectRepository(Books)
-        private booksRepository: Repository<Books>
     ) {}
 
     async create(data: CreateAuthorDTO) {
@@ -29,6 +26,12 @@ export class AuthorService {
             where: { id: id },
             relations: ["books"]
         })
+    }
+
+    async delete(id: number) {
+        await this.exists(id);
+        await this.authorsRepository.delete(id);
+        return true;
     }
 
     async exists(id: number) {

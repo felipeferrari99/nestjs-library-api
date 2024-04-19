@@ -1,5 +1,6 @@
 import { Books } from "src/book/entity/book.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Comments } from "src/comment/entity/comment.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 
 export enum UserType {
@@ -47,7 +48,10 @@ export class Users {
     })
     favorite_book: number; 
 
+    @OneToMany(type => Comments, comment => comment.user)
+    comments: Comments[];
+
     @ManyToOne(() => Books, books => books.favorite)
     @JoinColumn({ name: 'favorite_book' })
-    books: Books
+    book: Books
 }

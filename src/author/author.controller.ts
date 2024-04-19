@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Res } from "@nestjs/common";
 import { AuthorService } from "./author.service";
 import { CreateAuthorDTO } from "./dto/create-author.dto";
 
@@ -19,5 +19,12 @@ export class AuthorController {
     @Get(':id')
     async show(@Param('id', ParseIntPipe) id: number) {
         return this.authorService.show(id);
+    }
+
+    @Delete(':id')
+    async delete(@Param('id', ParseIntPipe) id: number) {
+        return {
+            success: await this.authorService.delete(id),
+        };
     }
 }

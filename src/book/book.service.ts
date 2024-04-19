@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Books } from "./entity/book.entity";
 import { Repository } from "typeorm";
-import { CreateBookDTO } from "./dto/create-book.to";
+import { CreateBookDTO } from "./dto/create-book.dto";
 
 @Injectable()
 export class BookService {
@@ -17,14 +17,16 @@ export class BookService {
     }
 
     async list() {
-        return this.booksRepository.find()
+        return this.booksRepository.find({
+            relations: ["author"]
+        })
     }
 
     async show(id: number) {
         await this.exists(id);
         return this.booksRepository.findOne({
             where: { id },
-            relations: ["authors"]
+            relations: ["author", "comments"]
         })
     }
 
