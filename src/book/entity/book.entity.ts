@@ -23,7 +23,9 @@ export class Books {
     })
     image: string;
 
-    @Column()
+    @Column({
+        default: 0
+    })
     qty_available: number;
 
     @Column()

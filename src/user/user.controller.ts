@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UserLoginDTO } from "./dto/user-login.dto";
@@ -30,7 +30,6 @@ export class UserController{
     async updateFavorite(@Param('id', ParseIntPipe) id: number, @Body('user_id', ParseIntPipe) user_id: number) {
       const data = await this.userService.getOne(user_id);
       if (data.favorite_book == id){
-        console.log('é igual')
         data.favorite_book = null
       } else {
         data.favorite_book = id

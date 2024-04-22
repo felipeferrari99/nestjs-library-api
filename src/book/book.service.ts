@@ -62,7 +62,7 @@ export class BookService {
                 data.release_date = release_date;
             }
             
-            if (qty_available) {
+            if (qty_available || qty_available === 0) {
                 data.qty_available = qty_available;
             }
 
