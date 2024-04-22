@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsOptional, IsString, MaxDate, max } from "class-validator"
+import { IsDate, IsNumber, IsOptional, IsString, Min } from "class-validator"
 
 export class CreateBookDTO {
     @IsString()

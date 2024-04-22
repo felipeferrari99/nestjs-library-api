@@ -10,5 +10,4 @@ export class CreateAuthorDTO {
     @IsOptional()
     @IsString()
     description: string
-
 }

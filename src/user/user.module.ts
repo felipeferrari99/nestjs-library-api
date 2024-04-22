@@ -4,13 +4,15 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserService } from "./user.service";
 import { Users } from "./entity/user.entity";
 import { JwtModule } from "@nestjs/jwt";
+import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
 
 @Module({
     imports: [
         JwtModule.register({
             secret: String(process.env.JWT_SECRET),
         }),
-        TypeOrmModule.forFeature([Users])
+        TypeOrmModule.forFeature([Users]),
+        CloudinaryModule
     ],
     controllers: [UserController],
     providers: [UserService],

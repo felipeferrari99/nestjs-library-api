@@ -1,7 +1,6 @@
 import { Books } from "src/book/entity/book.entity";
 import { Users } from "src/user/entity/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-require('dotenv').config();
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Comments {

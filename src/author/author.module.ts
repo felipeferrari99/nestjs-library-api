@@ -4,11 +4,13 @@ import { Authors } from "./entity/author.entity";
 import { AuthorController } from "./author.controller";
 import { AuthorService } from "./author.service";
 import { Books } from "src/book/entity/book.entity";
+import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Authors]),
         TypeOrmModule.forFeature([Books]),
+        CloudinaryModule
     ],
     controllers: [AuthorController],
     providers: [AuthorService],

@@ -1,5 +1,6 @@
 import { Books } from "src/book/entity/book.entity";
 import { Comments } from "src/comment/entity/comment.entity";
+import { Rents } from "src/rent/entity/rent.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 
@@ -51,7 +52,10 @@ export class Users {
     @OneToMany(type => Comments, comment => comment.user)
     comments: Comments[];
 
-    @ManyToOne(() => Books, books => books.favorite)
+    @OneToMany(type => Rents, rent => rent.user)
+    rents: Rents[];
+
+    @ManyToOne(() => Books, books => books.favorite, {onDelete: 'SET NULL'})
     @JoinColumn({ name: 'favorite_book' })
     book: Books
 }
