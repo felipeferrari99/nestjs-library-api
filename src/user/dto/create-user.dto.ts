@@ -16,6 +16,7 @@ export class CreateUserDTO {
     })
     password: string
 
+    @IsOptional()
     @IsString()
     image: string
 

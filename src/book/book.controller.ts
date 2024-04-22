@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UnauthorizedException, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { BookService } from "./book.service";
 import { CreateBookDTO } from "./dto/create-book.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -14,10 +14,13 @@ export class BookController {
 
     @Post()
     @UseInterceptors(FileInterceptor('file'))
-    async create(@Body() data: CreateBookDTO, @Body('author') author: string, @UploadedFile() file: Express.Multer.File) {
-        const authorData = await this.authorService.getByName(author)
+    async create(@Body() data: CreateBookDTO, @UploadedFile() file: Express.Multer.File) {
+        const authorData = await this.authorService.getByName(data.authorName)
+        if (data.release_date == 'Invalid date') {
+            throw new BadRequestException('Insert a valid date.');
+        }
         if (!authorData) {
-            const newAuthor = await this.authorService.create({'name': author, 'image': null, 'description': null}, null)
+            const newAuthor = await this.authorService.create({'name': data.authorName, 'image': null, 'description': null}, null)
             data.author_id = newAuthor.id;
         } 
         if (authorData) {
@@ -38,10 +41,10 @@ export class BookController {
     }
 
     @Put(':id')
-    async updatePartial(@Body() data: UpdateBookDTO, @Body('author') author: string, @Param('id', ParseIntPipe) id: number) {
-        const authorData = await this.authorService.getByName(author)
+    async updatePartial(@Body() data: UpdateBookDTO, @Param('id', ParseIntPipe) id: number) {
+        const authorData = await this.authorService.getByName(data.authorName)
         if (!authorData) {
-            const newAuthor = await this.authorService.create({'name': author, 'image': null, 'description': null}, null)
+            const newAuthor = await this.authorService.create({'name': data.authorName, 'image': null, 'description': null}, null)
             data.author_id = newAuthor.id;
         } 
         if (authorData) {

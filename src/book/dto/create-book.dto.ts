@@ -1,18 +1,22 @@
-import { IsDate, IsNumber, IsOptional, IsString, Min } from "class-validator"
+import { IsNumber, IsOptional, IsString, Min, MinLength } from "class-validator"
 
 export class CreateBookDTO {
     @IsString()
     title: string
 
-    @IsDate()
+    @IsString()
     release_date: string
 
+    @IsOptional()
     @IsString()
     image: string
 
-    @IsNumber()
     qty_available: number
 
+    @IsString()
+    authorName: string
+
+    @IsOptional()
     @IsNumber()
     author_id: number
 

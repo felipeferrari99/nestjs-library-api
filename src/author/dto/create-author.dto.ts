@@ -4,6 +4,7 @@ export class CreateAuthorDTO {
     @IsString()
     name: string
 
+    @IsOptional()
     @IsString()
     image: string
 
