@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, Res, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { AuthorService } from "./author.service";
 import { CreateAuthorDTO } from "./dto/create-author.dto";
 import { UpdateAuthorDTO } from "./dto/update-author.dto";
@@ -9,10 +9,8 @@ export class AuthorController {
     constructor(private readonly authorService: AuthorService) { }
 
     @Post()
-    @UseInterceptors(FileInterceptor('file'))
-    async create(@Body() data: CreateAuthorDTO, @UploadedFile() file: Express.Multer.File) {
-        const image = file;
-        return this.authorService.create(data, image);
+    async create(@Body() data: CreateAuthorDTO) {
+        return this.authorService.create(data);
     }
 
     @Get()
@@ -25,7 +23,7 @@ export class AuthorController {
         return this.authorService.show(id);
     }
 
-    @Put(':id')
+    @Patch(':id')
     async updatePartial(@Body() data: UpdateAuthorDTO, @Param('id', ParseIntPipe) id: number) {
         return this.authorService.updatePartial(id, data);
     }

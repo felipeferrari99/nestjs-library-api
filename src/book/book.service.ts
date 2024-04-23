@@ -14,12 +14,7 @@ export class BookService {
         private readonly cloudinaryService: CloudinaryService
     ) {}
 
-    async create(data: CreateBookDTO, image) {
-        data.image = process.env.CLOUDINARY_BOOK_URL;
-        if (image) {
-            const newImage = await this.cloudinaryService.uploadFile(image);
-            data.image = newImage.url;
-        }
+    async create(data: CreateBookDTO) {
         const book = this.booksRepository.create(data);
         return this.booksRepository.save(book);
     }

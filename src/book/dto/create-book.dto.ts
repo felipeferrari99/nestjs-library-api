@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString, Min, MinLength } from "class-validator"
+import { IsNumber, IsOptional, IsString, Min } from "class-validator"
 
 export class CreateBookDTO {
     @IsString()
@@ -11,6 +11,8 @@ export class CreateBookDTO {
     @IsString()
     image: string
 
+    @IsNumber()
+    @Min(0)
     qty_available: number
 
     @IsString()

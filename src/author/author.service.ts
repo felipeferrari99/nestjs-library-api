@@ -14,11 +14,9 @@ export class AuthorService {
         private readonly cloudinaryService: CloudinaryService
     ) {}
 
-    async create(data: CreateAuthorDTO, image) {
-        data.image = process.env.CLOUDINARY_PROFILE_URL;
-        if (image) {
-            const newImage = await this.cloudinaryService.uploadFile(image);
-            data.image = newImage.url;
+    async create(data: CreateAuthorDTO) {
+        if (!data.image) {
+            data.image = process.env.CLOUDINARY_PROFILE_URL;
         }
         const author = this.authorsRepository.create(data)
         return this.authorsRepository.save(author)
