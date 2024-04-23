@@ -1,6 +1,6 @@
-import { Books } from "src/book/entity/book.entity";
-import { Users } from "src/user/entity/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Books } from "../../book/entity/book.entity";
+import { Users } from "../../user/entity/user.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 export enum Status {
     Active = 'active',
@@ -12,11 +12,6 @@ export enum Status {
 export class Rents {
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column({
-        type: 'date'
-    })
-    date_rented: string;
 
     @Column({
         type: 'date'
@@ -41,6 +36,9 @@ export class Rents {
 
     @Column()
     user_id: number;
+
+    @CreateDateColumn()
+    date_rented: string;
 
     @ManyToOne(() => Users, user => user.rents)
     @JoinColumn({ name: 'user_id' })

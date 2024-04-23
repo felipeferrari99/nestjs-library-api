@@ -1,7 +1,7 @@
-import { Authors } from "src/author/entity/author.entity";
-import { Comments } from "src/comment/entity/comment.entity";
-import { Rents } from "src/rent/entity/rent.entity";
-import { Users } from "src/user/entity/user.entity";
+import { Authors } from "../../author/entity/author.entity";
+import { Comments } from "../../comment/entity/comment.entity";
+import { Rents } from "../../rent/entity/rent.entity";
+import { Users } from "../../user/entity/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 

@@ -1,4 +1,4 @@
-import { Books } from "src/book/entity/book.entity";
+import { Books } from "../../book/entity/book.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 

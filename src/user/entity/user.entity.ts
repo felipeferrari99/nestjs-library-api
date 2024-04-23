@@ -1,6 +1,6 @@
-import { Books } from "src/book/entity/book.entity";
-import { Comments } from "src/comment/entity/comment.entity";
-import { Rents } from "src/rent/entity/rent.entity";
+import { Books } from "../../book/entity/book.entity";
+import { Comments } from "../../comment/entity/comment.entity";
+import { Rents } from "../../rent/entity/rent.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 

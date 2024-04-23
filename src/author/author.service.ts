@@ -4,7 +4,7 @@ import { Like, Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateAuthorDTO } from "./dto/create-author.dto";
 import { UpdateAuthorDTO } from "./dto/update-author.dto";
-import { CloudinaryService } from "src/cloudinary/cloudinary.service";
+import { CloudinaryService } from "../cloudinary/cloudinary.service";
 
 @Injectable()
 export class AuthorService {
