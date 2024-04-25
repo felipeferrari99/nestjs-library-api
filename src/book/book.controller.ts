@@ -3,7 +3,7 @@ import { BookService } from "./book.service";
 import { CreateBookDTO } from "./dto/create-book.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { UpdateBookDTO } from "./dto/update-book.dto";
-import { AuthorService } from "src/author/author.service";
+import { AuthorService } from "../author/author.service";
 
 @Controller('books')
 export class BookController {

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Books } from "./entity/book.entity";
-import { Like, MoreThan, MoreThanOrEqual, Repository } from "typeorm";
+import { Like, MoreThanOrEqual, Repository } from "typeorm";
 import { CreateBookDTO } from "./dto/create-book.dto";
-import { CloudinaryService } from "src/cloudinary/cloudinary.service";
+import { CloudinaryService } from "../cloudinary/cloudinary.service";
 import { UpdateBookDTO } from "./dto/update-book.dto";
 
 @Injectable()
@@ -70,6 +70,7 @@ export class BookService {
             }
 
             await this.booksRepository.update(id, data);
+            return await this.show(id)
         } catch (err) {
             throw err
         }
@@ -78,7 +79,6 @@ export class BookService {
     async updateImage(id: number, image) {
         try {
             const oldImage = await this.show(id);
-
             const data: any = {};
             const regex = /\/([^\/]+)\.[^\/]+$/;
             const match = oldImage.image.match(regex);
@@ -106,18 +106,19 @@ export class BookService {
 
     async delete(id: number) {
         await this.exists(id);
+        await this.deleteBookImage(id)
+        await this.booksRepository.delete(id);
+        return true;
+    }
+    
+    async deleteBookImage(id: number) {
         const oldImage = await this.show(id);
-
-        const data: any = {};
         const regex = /\/([^\/]+)\.[^\/]+$/;
         const match = oldImage.image.match(regex);
         const fileId = match[1];
         if (fileId != process.env.CLOUDINARY_BOOK_ID) {
             await this.cloudinaryService.deleteFile(fileId)
         }
-            
-        await this.booksRepository.delete(id);
-        return true;
     }
 
     async exists(id: number) {

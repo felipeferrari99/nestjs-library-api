@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { JwtService } from "@nestjs/jwt";
 import { UpdateUserDTO } from "./dto/update-user.dto";
-import { CloudinaryService } from "src/cloudinary/cloudinary.service";
+import { CloudinaryService } from "../cloudinary/cloudinary.service";
 
 @Injectable()
 export class UserService {

@@ -32,9 +32,6 @@ export class RentsController{
 
     @Post('return/:id')
     async returnBook(@Param('id', ParseIntPipe) id: number) {
-        const rent = await this.rentService.returnBook(id);
-        rent.status = 'returned'
-        rent.date_returned = (new Date()).toISOString().split('T')[0]
-        return await this.rentService.saveReturn(id, rent);
-    }
+        return await this.rentService.returnBook(id);
+    }    
 }

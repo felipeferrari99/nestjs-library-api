@@ -70,6 +70,7 @@ export class AuthorService {
             }
 
             await this.authorsRepository.update(id, data);
+            return await this.show(id)
         } catch (err) {
             throw err
         }
@@ -106,19 +107,20 @@ export class AuthorService {
 
     async delete(id: number) {
         await this.exists(id);
-        const oldImage = await this.show(id);
+        await this.deleteAuthorImage(id);
+        await this.authorsRepository.delete(id);
+        return true;
+    }    
 
-        const data: any = {};
+    async deleteAuthorImage(id: number) {
+        const oldImage = await this.show(id);
         const regex = /\/([^\/]+)\.[^\/]+$/;
         const match = oldImage.image.match(regex);
         const fileId = match[1];
         if (fileId != process.env.CLOUDINARY_PROFILE_ID) {
             await this.cloudinaryService.deleteFile(fileId)
         }
-
-        await this.authorsRepository.delete(id);
-        return true;
-    }
+    }    
 
     async exists(id: number) {
         if (
