@@ -16,13 +16,13 @@ export class RentsController{
     }
 
     @Get('myRents/:userId')
-    async show(@Param('userId', ParseIntPipe) userId: number) {
-        return this.rentService.show(userId);
+    async listMyRents(@Param('userId', ParseIntPipe) userId: number) {
+        return this.rentService.listMyRents(userId);
     }
 
     @Get('allRents')
-    async list() {
-        return this.rentService.list();
+    async listAllRents() {
+        return this.rentService.listAllRents();
     }
 
     @Get('available')

@@ -21,14 +21,14 @@ export class RentsService{
         return this.rentsRepository.save(rent)
     }
 
-    async show(userId: number) {
+    async listMyRents(userId: number) {
         return this.rentsRepository.find({
             where: { user_id: userId },
             relations: ['book']
         });
     }
 
-    async list() {
+    async listAllRents() {
         return this.rentsRepository.find({
             relations: ['book', 'user']
         });

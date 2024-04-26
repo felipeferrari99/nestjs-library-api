@@ -3,7 +3,7 @@ import { UserService } from "../user.service";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";
 import { CreateUserDTO } from "../dto/create-user.dto";
 import { validate } from "class-validator";
-import { JwtService } from "@nestjs/jwt";
+import { JwtModule, JwtService } from "@nestjs/jwt";
 import { Users } from "../entity/user.entity";
 
 const mockUserRepository = {
@@ -21,6 +21,12 @@ describe('UserService', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
+            imports: [
+                JwtModule.register({
+                  secret: process.env.JWT_SECRET || 'test_secret_key',
+                  signOptions: { expiresIn: '1h' },
+                })
+            ],
             providers: [
                 CloudinaryService,
                 JwtService,
