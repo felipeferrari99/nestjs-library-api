@@ -111,7 +111,7 @@ describe('UserService', () => {
             const mockUser = {
                 id: 1,
                 username: 'testuser',
-                password: await bcrypt.hash('password', 10) // Hash the password for comparison
+                password: await bcrypt.hash('password', 10)
             };
     
             mockUserRepository.findOneBy.mockResolvedValueOnce(mockUser);
@@ -125,7 +125,7 @@ describe('UserService', () => {
             await expect(userService.login('nonexistentuser', 'password')).rejects.toThrow(UnauthorizedException);
         });
     });
-    
+
     describe('show', () => {
         it('Should return one user', async () => {
             const mockUser: Users = { id: 1, username: 'user', email: 'user@mail.com', password: '123', image: null, description: '', type: 'user', comments: [], rents: [], book: null, favorite_book: null };
