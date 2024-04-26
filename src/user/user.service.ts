@@ -30,6 +30,7 @@ export class UserService {
             {
               expiresIn: '1 days',
               subject: String(user.id),
+              secret: String(process.env.JWT_SECRET)
             },
           ),
         };
@@ -116,6 +117,7 @@ export class UserService {
             }
 
             await this.usersRepository.update(id, data);
+            return await this.show(id)
         } catch (err) {
             throw err
         }
@@ -153,8 +155,8 @@ export class UserService {
 
     async updateFavorite(user_id: number, user: Users) {
         const id = user_id
-        const updateBook = await this.usersRepository.update(id, user);
-        return updateBook;
+        await this.usersRepository.update(id, user);
+        return await this.show(id)
     }
 
     async exists(id: number) {
