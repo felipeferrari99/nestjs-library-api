@@ -1,18 +1,18 @@
 import { UploadedFile, UseInterceptors } from "@nestjs/common";
 import { AuthorService } from "../author.service";
-import { CreateAuthorDTO } from "../inputs/create-author.dto";
-import { UpdateAuthorDTO } from "../inputs/update-author.dto";
+import { UpdateAuthorInput } from "../inputs/update-author.input";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Mutation, Resolver, Query, Args } from "@nestjs/graphql";
-import { Authors } from "../types/author.entity";
+import { Authors } from "../entity/author.entity";
+import { CreateAuthorArgs } from "../args/create-author.args";
 
 @Resolver('authors')
 export class AuthorResolver {
     constructor(private readonly authorService: AuthorService) { }
 
     @Mutation(() => Authors)
-    async createAuthor(@Args('data') data: CreateAuthorDTO) {
-        return this.authorService.create(data);
+    async createAuthor(@Args() args: CreateAuthorArgs) {
+        return this.authorService.create(args.data);
     }
 
     @Query(() => Authors)
@@ -26,7 +26,7 @@ export class AuthorResolver {
     }
 
     @Mutation(() => Authors)
-    async updatePartialAuthor(@Args('data') data: UpdateAuthorDTO, @Args('id') id: number) {
+    async updatePartialAuthor(@Args('data') data: UpdateAuthorInput, @Args('id') id: number) {
         return this.authorService.updatePartial(id, data);
     }
 

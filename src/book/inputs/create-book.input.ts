@@ -1,15 +1,14 @@
-import { Field } from "@nestjs/graphql"
+import { Field, InputType } from "@nestjs/graphql"
 import { IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator"
 
-export class UpdateBookDTO {
+@InputType()
+export class CreateBookInput {
     @Field()
-    @IsOptional()
     @IsNotEmpty()
     @IsString()
     title: string
 
     @Field()
-    @IsOptional()
     @IsString()
     release_date: string
 
@@ -19,15 +18,13 @@ export class UpdateBookDTO {
     image: string
 
     @Field()
-    @IsOptional()
-    @IsString()
-    authorName: string
-
-    @Field()
-    @IsOptional()
     @IsNumber()
     @Min(0)
     qty_available: number
+
+    @Field()
+    @IsString()
+    authorName: string
 
     @Field()
     @IsOptional()

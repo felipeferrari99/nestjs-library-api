@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Books } from "./types/book.entity";
+import { Books } from "./entity/book.entity";
 import { Like, MoreThanOrEqual, Repository } from "typeorm";
-import { CreateBookDTO } from "./inputs/create-book.dto";
+import { CreateBookInput } from "./inputs/create-book.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
-import { UpdateBookDTO } from "./inputs/update-book.dto";
+import { UpdateBookInput } from "./inputs/update-book.input";
 
 @Injectable()
 export class BookService {
@@ -14,7 +14,7 @@ export class BookService {
         private readonly cloudinaryService: CloudinaryService
     ) {}
 
-    async create(data: CreateBookDTO) {
+    async create(data: CreateBookInput) {
         const book = this.booksRepository.create(data);
         return this.booksRepository.save(book);
     }
@@ -45,7 +45,7 @@ export class BookService {
         });
     }
 
-    async updatePartial(id: number, { title, release_date, qty_available, author_id, description }: UpdateBookDTO) {
+    async updatePartial(id: number, { title, release_date, qty_available, author_id, description }: UpdateBookInput) {
         try {
             const data: any = {};
 

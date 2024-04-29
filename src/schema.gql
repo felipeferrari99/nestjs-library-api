@@ -1,0 +1,156 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Rents {
+  id: ID!
+  date_for_return: String!
+  date_returned: String!
+  status: String!
+  book_id: Float!
+  user_id: Float!
+  date_rented: String!
+  user: Users!
+  book: Books!
+}
+
+type Users {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  type: String!
+  image: String!
+  description: String!
+  favorite_book: Float!
+  comments: [Comments!]!
+  rents: [Rents!]!
+  book: Books!
+}
+
+type Comments {
+  id: ID!
+  body: String!
+  rating: Float!
+  book_id: Float!
+  user_id: Float!
+  user: Users!
+  books: Books!
+}
+
+type Books {
+  id: ID!
+  title: String!
+  release_date: String!
+  image: String!
+  qty_available: Float!
+  author_id: Float!
+  description: String!
+  favorite: [Books!]!
+  comments: [Comments!]!
+  rents: [Rents!]!
+  author: Authors!
+}
+
+type Authors {
+  id: ID!
+  name: String!
+  image: String!
+  description: String!
+  books: [Books!]!
+}
+
+type Query {
+  showUser(id: Float!): Users!
+  listAuthors(search: String!): Authors!
+  showAuthor(id: Float!): Authors!
+  listBooks(search: String!): Books!
+  showBook(id: Float!): Books!
+  listMyRents(userId: Float!): Rents!
+  listAllRents: Rents!
+  listAvailable: Books!
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): Users!
+  login(data: UserLoginInput!): Users!
+  updatePartialUser(data: UpdateUserInput!, id: Float!): Users!
+  updateFavorite(id: Float!, user_id: Float!): Users!
+  uploadFileUser(id: Float!): Users!
+  createAuthor(data: CreateAuthorInput!): Authors!
+  updatePartialAuthor(data: UpdateAuthorInput!, id: Float!): Authors!
+  uploadFileAuthor(id: Float!): Authors!
+  deleteAuthor(id: Float!): Boolean!
+  createBook(data: CreateBookInput!): Books!
+  updatePartialBook(data: UpdateBookInput!, id: Float!): Books!
+  uploadFileBook(id: Float!): Books!
+  deleteBook(id: Float!): Boolean!
+  createComment(data: CreateCommentDTO!): Comments!
+  deleteComment(id: Float!, commentId: Float!): Comments!
+  createRent(data: CreateRentInput!): Rents!
+  returnBook(id: Float!): Rents!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+  image: String
+  description: String
+}
+
+input UserLoginInput {
+  username: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  email: String!
+  password: String!
+  image: String!
+  description: String!
+}
+
+input CreateAuthorInput {
+  name: String!
+  image: String!
+  description: String!
+}
+
+input UpdateAuthorInput {
+  name: String!
+  image: String!
+  description: String!
+}
+
+input CreateBookInput {
+  title: String!
+  release_date: String!
+  image: String!
+  qty_available: Float!
+  authorName: String!
+  author_id: Float!
+  description: String!
+}
+
+input UpdateBookInput {
+  title: String!
+  release_date: String!
+  image: String!
+  authorName: String!
+  qty_available: Float!
+  author_id: Float!
+  description: String!
+}
+
+input CreateCommentDTO {
+  body: String!
+  rating: Float!
+  book_id: Float!
+}
+
+input CreateRentInput {
+  book_id: Float!
+  user_id: Float!
+  date_returned: String
+}

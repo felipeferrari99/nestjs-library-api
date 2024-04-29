@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { BookService } from "../book.service";
-import { CreateBookDTO } from "../inputs/create-book.dto";
+import { CreateBookDTO } from "../inputs/create-book.input";
 import { validate } from "class-validator";
-import { Books } from "../types/book.entity";
+import { Books } from "../entity/book.entity";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";
 import { NotFoundException } from "@nestjs/common";
 

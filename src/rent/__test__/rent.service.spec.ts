@@ -1,12 +1,12 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { RentsService } from "../rent.service";
-import { CreateRentDTO } from "../dto/create-rent.dto";
+import { CreateRentDTO } from "../inputs/create-rent.input";
 import { validate } from "class-validator";
 import { BookService } from "../../book/book.service";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";
 import { Rents } from "../entity/rent.entity";
 import { NotFoundException } from "@nestjs/common";
-import { Books } from "../../book/types/book.entity";
+import { Books } from "../../book/entity/book.entity";
 
 const mockRentRepository = {
     exists: jest.fn(),

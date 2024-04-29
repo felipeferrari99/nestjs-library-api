@@ -1,11 +1,12 @@
-import { Field, ID } from "@nestjs/graphql";
-import { Authors } from "../../author/types/author.entity";
+import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Authors } from "../../author/entity/author.entity";
 import { Comments } from "../../comment/entity/comment.entity";
 import { Rents } from "../../rent/entity/rent.entity";
 import { Users } from "../../user/entity/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 
+@ObjectType()
 @Entity()
 export class Books {
     @PrimaryGeneratedColumn()

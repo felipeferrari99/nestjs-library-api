@@ -1,11 +1,11 @@
 import { BadRequestException, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { BookService } from "../book.service";
-import { CreateBookDTO } from "../inputs/create-book.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { UpdateBookDTO } from "../inputs/update-book.dto";
+import { UpdateBookInput } from "../inputs/update-book.input";
 import { AuthorService } from "../../author/author.service";
 import { Args, Mutation, Resolver, Query } from "@nestjs/graphql";
-import { Books } from "../types/book.entity";
+import { Books } from "../entity/book.entity";
+import { CreateBookArgs } from "../args/create-book.args";
 
 @Resolver('books')
 export class BookResolver {
@@ -15,22 +15,22 @@ export class BookResolver {
     ) {}
 
     @Mutation(() => Books)
-    async createBook(@Args('data') data: CreateBookDTO) {
-        const authorData = await this.authorService.getByName(data.authorName)
-        if (data.release_date == 'Invalid date') {
+    async createBook(@Args() args: CreateBookArgs) {
+        const authorData = await this.authorService.getByName(args.data.authorName)
+        if (args.data.release_date == 'Invalid date') {
             throw new BadRequestException('Insert a valid date.');
         }
         if (!authorData) {
-            const newAuthor = await this.authorService.create({'name': data.authorName, 'image': null, 'description': null})
-            data.author_id = newAuthor.id;
+            const newAuthor = await this.authorService.create({'name': args.data.authorName, 'image': null, 'description': null})
+            args.data.author_id = newAuthor.id;
         } 
         if (authorData) {
-            data.author_id = authorData.id
+            args.data.author_id = authorData.id
         }
-        return this.bookService.create(data);
+        return this.bookService.create(args.data);
     }
 
-    @Query()
+    @Query(() => Books)
     async listBooks(@Args('search') search: string) {
         return this.bookService.list(search);
     }
@@ -41,7 +41,7 @@ export class BookResolver {
     }
 
     @Mutation(() => Books)
-    async updatePartialBook(@Args('data') data: UpdateBookDTO, @Args('id') id: number) {
+    async updatePartialBook(@Args('data') data: UpdateBookInput, @Args('id') id: number) {
         const authorData = await this.authorService.getByName(data.authorName)
         if (!authorData) {
             const newAuthor = await this.authorService.create({'name': data.authorName, 'image': null, 'description': null})

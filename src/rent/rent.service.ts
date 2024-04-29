@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { Rents } from "./entity/rent.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { CreateRentDTO } from "./dto/create-rent.dto";
+import { CreateRentInput } from "./inputs/create-rent.input";
 import { BookService } from "../book/book.service";
 
 @Injectable()
@@ -13,10 +13,10 @@ export class RentsService{
         private readonly booksService: BookService,
     ) {}
 
-    async create(data: CreateRentDTO) {
+    async create(data: CreateRentInput) {
         const book = await this.booksService.show(data.book_id);
         book.qty_available = book.qty_available - 1;
-        await this.booksService.updatePartial(data.book_id, book)
+        // await this.booksService.updatePartial(data.book_id, book)
         const rent = this.rentsRepository.create(data)
         return this.rentsRepository.save(rent)
     }
@@ -46,7 +46,7 @@ export class RentsService{
         }
     
         book.qty_available += 1;
-        await this.booksService.updatePartial(rent.book_id, book);
+        // await this.booksService.updatePartial(rent.book_id, book);
     
         rent.status = 'returned';
         rent.date_returned = new Date().toISOString().split('T')[0];

@@ -3,9 +3,9 @@ import { Repository } from "typeorm";
 import { Users } from "./entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as bcrypt from 'bcrypt';
-import { CreateUserDTO } from "./dto/create-user.dto";
+import { CreateUserInput } from "./inputs/create-user.input";
 import { JwtService } from "@nestjs/jwt";
-import { UpdateUserDTO } from "./dto/update-user.dto";
+import { UpdateUserInput } from "./inputs/update-user.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
 
 @Injectable()
@@ -52,7 +52,7 @@ export class UserService {
         return this.createToken(user);
     }
 
-    async create(data: CreateUserDTO) {
+    async create(data: CreateUserInput) {
         if (
             await this.usersRepository.exists({
                 where: {
@@ -81,7 +81,9 @@ export class UserService {
 
         const newUser = await this.usersRepository.save(user)
 
-        return this.createToken(newUser);
+        const token = this.createToken(newUser);
+
+        return token
     }
 
     async show(id: number) {
@@ -99,7 +101,7 @@ export class UserService {
         });
     }
 
-    async updatePartial(id: number, { email, password, description }: UpdateUserDTO) {
+    async updatePartial(id: number, { email, password, description }: UpdateUserInput) {
         try {
             const data: any = {};
 

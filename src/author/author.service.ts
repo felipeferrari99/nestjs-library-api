@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { Authors } from "./types/author.entity";
+import { Authors } from "./entity/author.entity";
 import { Like, Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateAuthorDTO } from "./inputs/create-author.dto";
-import { UpdateAuthorDTO } from "./inputs/update-author.dto";
+import { CreateAuthorInput } from "./inputs/create-author.input";
+import { UpdateAuthorInput } from "./inputs/update-author.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
 
 @Injectable()
@@ -14,7 +14,7 @@ export class AuthorService {
         private readonly cloudinaryService: CloudinaryService
     ) {}
 
-    async create(data: CreateAuthorDTO) {
+    async create(data: CreateAuthorInput) {
         if (!data.image) {
             data.image = process.env.CLOUDINARY_PROFILE_URL;
         }
@@ -57,7 +57,7 @@ export class AuthorService {
         })
     }
 
-    async updatePartial(id: number, { name, description }: UpdateAuthorDTO) {
+    async updatePartial(id: number, { name, description }: UpdateAuthorInput) {
         try {
             const data: any = {};
 
