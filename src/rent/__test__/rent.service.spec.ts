@@ -6,7 +6,7 @@ import { BookService } from "../../book/book.service";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";
 import { Rents } from "../entity/rent.entity";
 import { NotFoundException } from "@nestjs/common";
-import { Books } from "../../book/entity/book.entity";
+import { Books } from "../../book/types/book.entity";
 
 const mockRentRepository = {
     exists: jest.fn(),

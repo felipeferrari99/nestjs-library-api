@@ -6,7 +6,7 @@ import { validate } from "class-validator";
 import { JwtService } from "@nestjs/jwt";
 import { Users } from "../entity/user.entity";
 import { BadRequestException, NotFoundException, UnauthorizedException } from "@nestjs/common";
-import { Books } from "../../book/entity/book.entity";
+import { Books } from "../../book/types/book.entity";
 import * as bcrypt from 'bcrypt';
 
 const mockUserRepository = {

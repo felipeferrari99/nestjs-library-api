@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Books } from "./entity/book.entity";
+import { Books } from "./types/book.entity";
 import { Like, MoreThanOrEqual, Repository } from "typeorm";
-import { CreateBookDTO } from "./dto/create-book.dto";
+import { CreateBookDTO } from "./inputs/create-book.dto";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
-import { UpdateBookDTO } from "./dto/update-book.dto";
+import { UpdateBookDTO } from "./inputs/update-book.dto";
 
 @Injectable()
 export class BookService {

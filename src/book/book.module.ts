@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Books } from "./entity/book.entity";
-import { BookController } from "./book.controller";
+import { Books } from "./types/book.entity";
+import { BookResolver } from "./resolver/book.resolver";
 import { BookService } from "./book.service";
 import { CloudinaryModule } from "../cloudinary/cloudinary.module";
 import { AuthorModule } from "../author/author.module";
@@ -12,8 +12,7 @@ import { AuthorModule } from "../author/author.module";
         CloudinaryModule,
         AuthorModule
     ],
-    controllers: [BookController],
-    providers: [BookService],
+    providers: [BookService, BookResolver],
     exports: [BookService]
 })
 export class BookModule {}

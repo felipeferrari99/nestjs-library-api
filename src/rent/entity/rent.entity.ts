@@ -1,4 +1,4 @@
-import { Books } from "../../book/entity/book.entity";
+import { Books } from "../../book/types/book.entity";
 import { Users } from "../../user/entity/user.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 

@@ -1,19 +1,21 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { BookService } from "./book.service";
-import { CreateBookDTO } from "./dto/create-book.dto";
+import { BadRequestException, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BookService } from "../book.service";
+import { CreateBookDTO } from "../inputs/create-book.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { UpdateBookDTO } from "./dto/update-book.dto";
-import { AuthorService } from "../author/author.service";
+import { UpdateBookDTO } from "../inputs/update-book.dto";
+import { AuthorService } from "../../author/author.service";
+import { Args, Mutation, Resolver, Query } from "@nestjs/graphql";
+import { Books } from "../types/book.entity";
 
-@Controller('books')
-export class BookController {
+@Resolver('books')
+export class BookResolver {
     constructor(
         private readonly bookService: BookService,
         private readonly authorService: AuthorService
     ) {}
 
-    @Post()
-    async create(@Body() data: CreateBookDTO) {
+    @Mutation(() => Books)
+    async createBook(@Args('data') data: CreateBookDTO) {
         const authorData = await this.authorService.getByName(data.authorName)
         if (data.release_date == 'Invalid date') {
             throw new BadRequestException('Insert a valid date.');
@@ -28,18 +30,18 @@ export class BookController {
         return this.bookService.create(data);
     }
 
-    @Get()
-    async list(@Query('search') search: string) {
+    @Query()
+    async listBooks(@Args('search') search: string) {
         return this.bookService.list(search);
     }
 
-    @Get(':id')
-    async show(@Param('id', ParseIntPipe) id: number) {
+    @Query(() => Books)
+    async showBook(@Args('id') id: number) {
         return this.bookService.show(id);
     }
 
-    @Patch(':id')
-    async updatePartial(@Body() data: UpdateBookDTO, @Param('id', ParseIntPipe) id: number) {
+    @Mutation(() => Books)
+    async updatePartialBook(@Args('data') data: UpdateBookDTO, @Args('id') id: number) {
         const authorData = await this.authorService.getByName(data.authorName)
         if (!authorData) {
             const newAuthor = await this.authorService.create({'name': data.authorName, 'image': null, 'description': null})
@@ -51,15 +53,15 @@ export class BookController {
         return this.bookService.updatePartial(id, data);
     }
 
-    @Post(':id/image')
+    @Mutation(() => Books)
     @UseInterceptors(FileInterceptor('file'))
-    uploadFile(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+    uploadFileBook(@Args('id') id: number, @UploadedFile() file: Express.Multer.File) {
         const image = file;
         return this.bookService.updateImage(id, image)
     }
 
-    @Delete(':id')
-    async delete(@Param('id', ParseIntPipe) id: number) {
+    @Mutation(() => Boolean)
+    async deleteBook(@Args('id') id: number) {
         return {
             success: await this.bookService.delete(id),
         };

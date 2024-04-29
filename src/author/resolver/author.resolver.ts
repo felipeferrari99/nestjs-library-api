@@ -1,7 +1,7 @@
 import { UploadedFile, UseInterceptors } from "@nestjs/common";
 import { AuthorService } from "../author.service";
-import { CreateAuthorDTO } from "../dto/create-author.dto";
-import { UpdateAuthorDTO } from "../dto/update-author.dto";
+import { CreateAuthorDTO } from "../inputs/create-author.dto";
+import { UpdateAuthorDTO } from "../inputs/update-author.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Mutation, Resolver, Query, Args } from "@nestjs/graphql";
 import { Authors } from "../types/author.entity";
@@ -15,10 +15,10 @@ export class AuthorResolver {
         return this.authorService.create(data);
     }
 
-    // @Query()
-    // async list(@Query('search') search: string) {
-    //     return this.authorService.list(search);
-    // }
+    @Query(() => Authors)
+    async listAuthors(@Args('search') search: string) {
+        return this.authorService.list(search);
+    }
 
     @Query(() => Authors)
     async showAuthor(@Args('id') id: number) {

@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Authors } from './author/types/author.entity';
 import { Users } from './user/entity/user.entity';
-import { Books } from './book/entity/book.entity';
+import { Books } from './book/types/book.entity';
 import { UserModule } from './user/user.module';
 import { AuthorModule } from './author/author.module';
 import { BookModule } from './book/book.module';

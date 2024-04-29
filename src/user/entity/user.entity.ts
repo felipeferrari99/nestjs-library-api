@@ -1,4 +1,4 @@
-import { Books } from "../../book/entity/book.entity";
+import { Books } from "../../book/types/book.entity";
 import { Comments } from "../../comment/entity/comment.entity";
 import { Rents } from "../../rent/entity/rent.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";

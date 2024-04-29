@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Books } from "../../book/entity/book.entity";
+import { Books } from "../../book/types/book.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 require('dotenv').config();
 
