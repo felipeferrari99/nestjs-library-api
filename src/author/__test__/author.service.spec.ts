@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthorService } from '../author.service';
 import { CreateAuthorDTO } from '../dto/create-author.dto';
-import { Authors } from '../entity/author.entity';
+import { Authors } from '../types/author.entity';
 import { NotFoundException } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { CloudinaryService } from '../../cloudinary/cloudinary.service';

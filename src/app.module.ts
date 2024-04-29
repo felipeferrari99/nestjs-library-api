@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Authors } from './author/entity/author.entity';
+import { Authors } from './author/types/author.entity';
 import { Users } from './user/entity/user.entity';
 import { Books } from './book/entity/book.entity';
 import { UserModule } from './user/user.module';
@@ -14,6 +14,8 @@ import { CommentModule } from './comment/comment.module';
 import { Rents } from './rent/entity/rent.entity';
 import { RentsModule } from './rent/rent.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -21,12 +23,12 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
         envFilePath: '.env',
       }),
 
-      UserModule,
+      // UserModule,
       AuthorModule,
-      BookModule,
-      CommentModule,
-      RentsModule,
-      CloudinaryModule,
+      // BookModule,
+      // CommentModule,
+      // RentsModule,
+      // CloudinaryModule,
 
       TypeOrmModule.forRoot({
       type: 'mysql',
@@ -37,7 +39,13 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
       database: process.env.DB_DATABASE,
       entities: [Authors, Books, Users, Comments, Rents],
       synchronize: true
-    })
+    }),
+
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      include: [AuthorModule],
+      autoSchemaFile: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

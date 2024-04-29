@@ -1,4 +1,4 @@
-import { Authors } from "../../author/entity/author.entity";
+import { Authors } from "../../author/types/author.entity";
 import { Comments } from "../../comment/entity/comment.entity";
 import { Rents } from "../../rent/entity/rent.entity";
 import { Users } from "../../user/entity/user.entity";
