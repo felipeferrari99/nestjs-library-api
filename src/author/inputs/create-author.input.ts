@@ -8,12 +8,12 @@ export class CreateAuthorInput {
     @IsString()
     name: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     image: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     description: string

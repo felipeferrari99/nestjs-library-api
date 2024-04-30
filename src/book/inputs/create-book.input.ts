@@ -12,7 +12,7 @@ export class CreateBookInput {
     @IsString()
     release_date: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     image: string
@@ -26,12 +26,12 @@ export class CreateBookInput {
     @IsString()
     authorName: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsNumber()
     author_id: number
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     description: string

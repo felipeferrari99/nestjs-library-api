@@ -6,16 +6,16 @@ export class UpdateAuthorInput {
     @IsOptional()
     @IsNotEmpty()
     @IsString()
-    @Field()
+    @Field({ nullable: true })
     name: string
 
     @IsOptional()
     @IsString()
-    @Field()
+    @Field({ nullable: true })
     image: string
 
     @IsOptional()
     @IsString()
-    @Field()
+    @Field({ nullable: true })
     description: string
 }

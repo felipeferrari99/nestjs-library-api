@@ -1,9 +1,9 @@
 import { RentsService } from "../rent.service";
 import { BookService } from "src/book/book.service";
 import { Mutation, Resolver, Query, Args } from "@nestjs/graphql";
-import { Rents } from "../entity/rent.entity";
-import { Books } from "../../book/entity/book.entity";
 import { CreateRentArgs } from "../args/create-rent.args";
+import { BookType } from "src/book/type/book.type";
+import { RentType } from "../type/rent.type";
 
 @Resolver()
 export class RentsResolver{
@@ -12,27 +12,27 @@ export class RentsResolver{
         private readonly bookService: BookService
     ) {}
 
-    @Mutation(() => Rents)
+    @Mutation(() => RentType)
     async createRent(@Args() args: CreateRentArgs) {
         await this.rentService.create(args.data);
     }
 
-    @Query(() => Rents)
+    @Query(() => [RentType])
     async listMyRents(@Args('userId') userId: number) {
         return this.rentService.listMyRents(userId);
     }
 
-    @Query(() => Rents)
+    @Query(() => [RentType])
     async listAllRents() {
         return this.rentService.listAllRents();
     }
 
-    @Query(() => Books)
+    @Query(() => [BookType])
     async listAvailable() {
         return this.bookService.listAvailable();
     }
 
-    @Mutation(() => Rents)
+    @Mutation(() => RentType)
     async returnBook(@Args('id') id: number) {
         return await this.rentService.returnBook(id);
     }    

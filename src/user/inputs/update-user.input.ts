@@ -3,12 +3,12 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "cla
 
 @InputType()
 export class UpdateUserInput {
-    @Field()
+    @Field({ nullable: true })
     @IsEmail()
     @IsOptional()
     email: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsStrongPassword({
         minLength: 3,
@@ -19,12 +19,12 @@ export class UpdateUserInput {
     })
     password: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     image: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     description: string

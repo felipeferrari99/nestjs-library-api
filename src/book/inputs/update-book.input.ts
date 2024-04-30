@@ -3,39 +3,39 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator
 
 @InputType()
 export class UpdateBookInput {
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsNotEmpty()
     @IsString()
     title: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     release_date: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     image: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     authorName: string
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsNumber()
     @Min(0)
     qty_available: number
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsNumber()
     author_id: number
 
-    @Field()
+    @Field({ nullable: true })
     @IsOptional()
     @IsString()
     description: string

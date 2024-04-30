@@ -7,6 +7,7 @@ import { CreateUserInput } from "./inputs/create-user.input";
 import { JwtService } from "@nestjs/jwt";
 import { UpdateUserInput } from "./inputs/update-user.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
+import { CreateUserResponse } from "./type/user.type";
 
 @Injectable()
 export class UserService {
@@ -52,7 +53,7 @@ export class UserService {
         return this.createToken(user);
     }
 
-    async create(data: CreateUserInput) {
+    async create(data: CreateUserInput): Promise<CreateUserResponse> {
         if (
             await this.usersRepository.exists({
                 where: {
@@ -62,7 +63,7 @@ export class UserService {
         ) {
             throw new BadRequestException('User already exists');
         }
-
+    
         if (
             await this.usersRepository.exists({
                 where: {
@@ -72,18 +73,16 @@ export class UserService {
         ) {
             throw new BadRequestException('There is already an account using this e-mail address.');
         }
-
-        const salt = await bcrypt.genSalt(); true
-
-        data.password = await bcrypt.hash(data.password, salt)
-
-        const user = this.usersRepository.create(data)
-
-        const newUser = await this.usersRepository.save(user)
-
-        const token = this.createToken(newUser);
-
-        return token
+    
+        const salt = await bcrypt.genSalt();
+        data.password = await bcrypt.hash(data.password, salt); 
+    
+        const user = this.usersRepository.create(data); 
+        const newUser = await this.usersRepository.save(user); 
+    
+        const token = this.createToken(newUser); 
+    
+        return { user: newUser, token: token.token };
     }
 
     async show(id: number) {

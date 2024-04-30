@@ -4,8 +4,8 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { UpdateBookInput } from "../inputs/update-book.input";
 import { AuthorService } from "../../author/author.service";
 import { Args, Mutation, Resolver, Query } from "@nestjs/graphql";
-import { Books } from "../entity/book.entity";
 import { CreateBookArgs } from "../args/create-book.args";
+import { BookType } from "../type/book.type";
 
 @Resolver('books')
 export class BookResolver {
@@ -14,7 +14,7 @@ export class BookResolver {
         private readonly authorService: AuthorService
     ) {}
 
-    @Mutation(() => Books)
+    @Mutation(() => BookType)
     async createBook(@Args() args: CreateBookArgs) {
         const authorData = await this.authorService.getByName(args.data.authorName)
         if (args.data.release_date == 'Invalid date') {
@@ -30,17 +30,17 @@ export class BookResolver {
         return this.bookService.create(args.data);
     }
 
-    @Query(() => Books)
+    @Query(() => [BookType])
     async listBooks(@Args('search') search: string) {
         return this.bookService.list(search);
     }
 
-    @Query(() => Books)
+    @Query(() => BookType)
     async showBook(@Args('id') id: number) {
         return this.bookService.show(id);
     }
 
-    @Mutation(() => Books)
+    @Mutation(() => BookType)
     async updatePartialBook(@Args('data') data: UpdateBookInput, @Args('id') id: number) {
         const authorData = await this.authorService.getByName(data.authorName)
         if (!authorData) {
@@ -53,7 +53,7 @@ export class BookResolver {
         return this.bookService.updatePartial(id, data);
     }
 
-    @Mutation(() => Books)
+    @Mutation(() => BookType)
     @UseInterceptors(FileInterceptor('file'))
     uploadFileBook(@Args('id') id: number, @UploadedFile() file: Express.Multer.File) {
         const image = file;
