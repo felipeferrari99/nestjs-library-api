@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { Rents } from "./entity/rent.entity";
 import { RentsService } from "./rent.service";
 import { BookModule } from "src/book/book.module";
-import { RentsResolver } from "./resolver/rent.resolver";
+import { RentsResolver } from "../GraphQL/rent/resolver/rent.resolver";
 
 @Module({
     imports: [

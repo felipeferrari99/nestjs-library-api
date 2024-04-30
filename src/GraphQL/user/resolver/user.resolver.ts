@@ -1,5 +1,5 @@
 import { UploadedFile, UseInterceptors } from "@nestjs/common";
-import { UserService } from "../user.service";
+import { UserService } from "../../../user/user.service";
 import { UserLoginInput } from "../inputs/user-login.input";
 import { UpdateUserInput } from "../inputs/update-user.input";
 import { FileInterceptor } from "@nestjs/platform-express";
@@ -19,8 +19,8 @@ export class UserResolver {
         return { user, token };
     }
 
-    @Mutation(() => UserType)
-    async login(@Args('data') data: UserLoginInput) {
+    @Mutation(() => CreateUserResponse)
+    async login(@Args('data') data: UserLoginInput): Promise<CreateUserResponse> {
         return this.userService.login(data.username, data.password);
     }
 

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { CreateCommentDTO } from "./inputs/create-comment.dto";
+import { CreateCommentInput } from "../GraphQL/comment/inputs/create-comment.input";
 import { Comments } from "./entity/comment.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -11,7 +11,7 @@ export class CommentService{
         private commentsRepository: Repository<Comments>
     ) {}
 
-    async create(data: CreateCommentDTO) {
+    async create(data: CreateCommentInput) {
         const comment = this.commentsRepository.create(data)
         return this.commentsRepository.save(comment)
     }

@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { BookType } from "src/book/type/book.type";
-import { UserType } from "src/user/type/user.type";
+import { UserType } from "../../user/type/user.type";
+import { BookType } from "../../book/types/book.type";
 
 @ObjectType()
 export class RentType {
@@ -10,7 +10,7 @@ export class RentType {
     @Field()
     date_for_return: string;
 
-    @Field()
+    @Field({ nullable: true })
     date_returned: string;
 
     @Field()

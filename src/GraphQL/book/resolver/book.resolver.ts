@@ -1,11 +1,11 @@
 import { BadRequestException, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { BookService } from "../book.service";
+import { BookService } from "../../../book/book.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { UpdateBookInput } from "../inputs/update-book.input";
-import { AuthorService } from "../../author/author.service";
+import { AuthorService } from "../../../author/author.service";
 import { Args, Mutation, Resolver, Query } from "@nestjs/graphql";
 import { CreateBookArgs } from "../args/create-book.args";
-import { BookType } from "../type/book.type";
+import { BookType } from "../types/book.type";
 
 @Resolver('books')
 export class BookResolver {

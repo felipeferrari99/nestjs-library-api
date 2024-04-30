@@ -64,8 +64,8 @@ type AuthorType {
   id: ID!
   name: String!
   image: String!
-  description: String!
-  books: BookType!
+  description: String
+  books: [BookType!]
 }
 
 type CommentType {
@@ -78,18 +78,6 @@ type CommentType {
   books: BookType!
 }
 
-type RentType {
-  id: ID!
-  date_for_return: String!
-  date_returned: String!
-  status: String!
-  book_id: Float!
-  user_id: Float!
-  date_rented: String!
-  user: UserType!
-  book: BookType!
-}
-
 type BookType {
   id: ID!
   title: String!
@@ -97,10 +85,8 @@ type BookType {
   image: String!
   qty_available: Float!
   author_id: Float!
-  description: String!
-  favorite: BookType!
-  comments: CommentType!
-  rents: RentType!
+  description: String
+  comments: [CommentType!]
   author: AuthorType!
 }
 
@@ -116,10 +102,20 @@ type UserType {
   password: String!
   type: String!
   image: String!
-  description: String!
-  favorite_book: Float!
-  comments: CommentType!
-  rents: RentType!
+  description: String
+  favorite_book: Float
+  book: BookType
+}
+
+type RentType {
+  id: ID!
+  date_for_return: String!
+  date_returned: String
+  status: String!
+  book_id: Float!
+  user_id: Float!
+  date_rented: String!
+  user: UserType!
   book: BookType!
 }
 
@@ -136,7 +132,7 @@ type Query {
 
 type Mutation {
   createUser(data: CreateUserInput!): CreateUserResponse!
-  login(data: UserLoginInput!): UserType!
+  login(data: UserLoginInput!): CreateUserResponse!
   updatePartialUser(data: UpdateUserInput!, id: Float!): UserType!
   updateFavorite(id: Float!, user_id: Float!): UserType!
   uploadFileUser(id: Float!): UserType!
@@ -148,7 +144,7 @@ type Mutation {
   updatePartialBook(data: UpdateBookInput!, id: Float!): BookType!
   uploadFileBook(id: Float!): BookType!
   deleteBook(id: Float!): Boolean!
-  createComment(data: CreateCommentDTO!): CommentType!
+  createComment(data: CreateCommentInput!): CommentType!
   deleteComment(id: Float!, commentId: Float!): CommentType!
   createRent(data: CreateRentInput!): RentType!
   returnBook(id: Float!): RentType!
@@ -206,7 +202,7 @@ input UpdateBookInput {
   description: String
 }
 
-input CreateCommentDTO {
+input CreateCommentInput {
   body: String!
   rating: Float!
   book_id: Float!

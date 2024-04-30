@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { CommentService } from "../comment.service";
-import { CreateCommentDTO } from "../inputs/create-comment.dto";
+import { CreateCommentDTO } from "../../GraphQL/comment/inputs/create-comment.input";
 import { validate } from "class-validator";
 import { Comments } from "../entity/comment.entity";
 import { NotFoundException } from "@nestjs/common";

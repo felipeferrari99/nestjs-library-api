@@ -1,10 +1,10 @@
 import { UploadedFile, UseInterceptors } from "@nestjs/common";
-import { AuthorService } from "../author.service";
+import { AuthorService } from "../../../author/author.service";
 import { UpdateAuthorInput } from "../inputs/update-author.input";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Mutation, Resolver, Query, Args } from "@nestjs/graphql";
 import { CreateAuthorArgs } from "../args/create-author.args";
-import { AuthorType } from "../type/author.type";
+import { AuthorType } from "../types/author.type";
 
 @Resolver('authors')
 export class AuthorResolver {

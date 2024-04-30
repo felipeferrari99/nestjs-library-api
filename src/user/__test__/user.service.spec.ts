@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { UserService } from "../user.service";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";
-import { CreateUserDTO } from "../inputs/create-user.input";
+import { CreateUserDTO } from "../../GraphQL/user/inputs/create-user.input";
 import { validate } from "class-validator";
 import { JwtService } from "@nestjs/jwt";
 import { Users } from "../entity/user.entity";

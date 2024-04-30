@@ -3,11 +3,11 @@ import { Repository } from "typeorm";
 import { Users } from "./entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import * as bcrypt from 'bcrypt';
-import { CreateUserInput } from "./inputs/create-user.input";
+import { CreateUserInput } from "../GraphQL/user/inputs/create-user.input";
 import { JwtService } from "@nestjs/jwt";
-import { UpdateUserInput } from "./inputs/update-user.input";
+import { UpdateUserInput } from "../GraphQL/user/inputs/update-user.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
-import { CreateUserResponse } from "./type/user.type";
+import { CreateUserResponse } from "../GraphQL/user/type/user.type";
 
 @Injectable()
 export class UserService {
@@ -50,10 +50,12 @@ export class UserService {
           throw new UnauthorizedException('Invalid username or password.');
         }
     
-        return this.createToken(user);
+        const token = this.createToken(user);
+
+        return { user: user, token: token.token };
     }
 
-    async create(data: CreateUserInput): Promise<CreateUserResponse> {
+    async create(data: CreateUserInput) {
         if (
             await this.usersRepository.exists({
                 where: {

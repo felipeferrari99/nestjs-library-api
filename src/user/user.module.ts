@@ -4,7 +4,7 @@ import { UserService } from "./user.service";
 import { Users } from "./entity/user.entity";
 import { JwtModule } from "@nestjs/jwt";
 import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
-import { UserResolver } from "./resolver/user.resolver";
+import { UserResolver } from "../GraphQL/user/resolver/user.resolver";
 
 @Module({
     imports: [

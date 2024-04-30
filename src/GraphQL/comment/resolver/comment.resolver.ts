@@ -1,15 +1,16 @@
-import { CommentService } from "../comment.service";
-import { CreateCommentDTO } from "../inputs/create-comment.dto";
 import { Args, Mutation, Resolver } from "@nestjs/graphql";
-import { CommentType } from "../type/comment.type";
+import { CommentService } from "../../../comment/comment.service";
+import { CommentType } from "../types/comment.type";
+import { CreateCommentArgs } from "../args/create-comment.args";
+
 
 @Resolver('books/:id/comments')
 export class CommentResolver {
     constructor(private readonly commentService: CommentService) {}
 
     @Mutation(() => CommentType)
-    async createComment(@Args('data') data: CreateCommentDTO) {
-        await this.commentService.create(data);
+    async createComment(@Args() args: CreateCommentArgs) {
+        await this.commentService.create(args.data);
     }
 
     @Mutation(() => CommentType)

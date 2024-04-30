@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthorService } from '../author.service';
-import { CreateAuthorDTO } from '../dto/create-author.dto';
 import { Authors } from '../entity/author.entity';
 import { NotFoundException } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { CloudinaryService } from '../../cloudinary/cloudinary.service';
+import { CreateAuthorInput } from '../../GraphQL/author/inputs/create-author.input';
 
 const mockAuthorRepository = {
     exists: jest.fn(),
@@ -34,7 +34,7 @@ describe('AuthorService', () => {
 
     describe('DTO validation', () => {
         it('should pass validation with a valid name', async () => {
-            const data = new CreateAuthorDTO();
+            const data = new CreateAuthorInput();
             data.name = 'Author 1';
 
             const errors = await validate(data);
@@ -43,7 +43,7 @@ describe('AuthorService', () => {
         });
 
         it('should fail validation with an empty name', async () => {
-            const data = new CreateAuthorDTO();
+            const data = new CreateAuthorInput();
             data.name = '';
 
             const errors = await validate(data);
@@ -55,7 +55,7 @@ describe('AuthorService', () => {
 
     describe('create', () => {
         it('should create a new author', async () => {
-            const data = new CreateAuthorDTO();
+            const data = new CreateAuthorInput();
             data.name = 'Author 1';
             const authorMock: Authors = { id: 1, ...data, books: [] };
 
@@ -116,14 +116,14 @@ describe('AuthorService', () => {
 
             jest.spyOn(authorService, 'show').mockResolvedValueOnce(updatedAuthor);
     
-            const result = await authorService.updatePartial(1, { name: 'Author 1' });
+            const result = await authorService.updatePartial(1, { name: 'Author 1', image: null, description: null });
     
             expect(result).toEqual(updatedAuthor);
         });
     
         it('should throw NotFoundException if author with the specified ID is not found', async () => {
             jest.spyOn(authorService, 'exists').mockRejectedValueOnce(new NotFoundException());
-            await expect(authorService.updatePartial(999, { name: 'Author 2' })).rejects.toThrow(NotFoundException);
+            await expect(authorService.updatePartial(999, { name: 'Author 2', image: null, description: null })).rejects.toThrow(NotFoundException);
         });
     });
 

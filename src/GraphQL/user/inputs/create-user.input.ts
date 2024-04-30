@@ -24,6 +24,7 @@ export class CreateUserInput {
 
     @Field({ nullable: true })
     @IsOptional()
+    @IsString()
     image: string
 
     @Field({ nullable: true })

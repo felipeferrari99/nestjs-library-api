@@ -2,7 +2,7 @@ import { Field, InputType } from "@nestjs/graphql"
 import { IsNumber, IsString, Max, Min } from "class-validator"
 
 @InputType()
-export class CreateCommentDTO {
+export class CreateCommentInput {
     @Field()
     @IsString()
     body: string

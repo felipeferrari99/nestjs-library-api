@@ -1,9 +1,9 @@
-import { RentsService } from "../rent.service";
+import { RentsService } from "../../../rent/rent.service";
 import { BookService } from "src/book/book.service";
 import { Mutation, Resolver, Query, Args } from "@nestjs/graphql";
 import { CreateRentArgs } from "../args/create-rent.args";
-import { BookType } from "src/book/type/book.type";
-import { RentType } from "../type/rent.type";
+import { RentType } from "../types/rent.type";
+import { BookType } from "../../book/types/book.type";
 
 @Resolver()
 export class RentsResolver{

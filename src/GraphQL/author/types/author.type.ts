@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { BookType } from "src/book/type/book.type";
+import { BookType } from "../../book/types/book.type";
 
 @ObjectType()
 export class AuthorType {
@@ -12,9 +12,9 @@ export class AuthorType {
     @Field()
     image: string;
 
-    @Field()
+    @Field({ nullable: true })
     description: string;
 
-    @Field(type => BookType)
+    @Field(type => [BookType], { nullable: true })
     books?: BookType;
 }

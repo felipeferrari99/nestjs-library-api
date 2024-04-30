@@ -2,9 +2,9 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Books } from "./entity/book.entity";
 import { Like, MoreThanOrEqual, Repository } from "typeorm";
-import { CreateBookInput } from "./inputs/create-book.input";
+import { CreateBookInput } from "../GraphQL/book/inputs/create-book.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
-import { UpdateBookInput } from "./inputs/update-book.input";
+import { UpdateBookInput } from "../GraphQL/book/inputs/update-book.input";
 
 @Injectable()
 export class BookService {

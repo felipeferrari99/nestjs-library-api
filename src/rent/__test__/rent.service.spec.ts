@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { RentsService } from "../rent.service";
-import { CreateRentDTO } from "../inputs/create-rent.input";
+import { CreateRentDTO } from "../../GraphQL/rent/inputs/create-rent.input";
 import { validate } from "class-validator";
 import { BookService } from "../../book/book.service";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";

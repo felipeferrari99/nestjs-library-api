@@ -4,7 +4,7 @@ import { Authors } from "./entity/author.entity";
 import { AuthorService } from "./author.service";
 import { Books } from "src/book/entity/book.entity";
 import { CloudinaryModule } from "src/cloudinary/cloudinary.module";
-import { AuthorResolver } from "./resolver/author.resolver";
+import { AuthorResolver } from "../GraphQL/author/resolver/author.resolver";
 
 @Module({
     imports: [

@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { Rents } from "./entity/rent.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { CreateRentInput } from "./inputs/create-rent.input";
+import { CreateRentInput } from "../GraphQL/rent/inputs/create-rent.input";
 import { BookService } from "../book/book.service";
 
 @Injectable()

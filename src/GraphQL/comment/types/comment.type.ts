@@ -1,6 +1,6 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { BookType } from "src/book/type/book.type";
-import { UserType } from "src/user/type/user.type";
+import { BookType } from "../../book/types/book.type";
+import { UserType } from "../../user/type/user.type";
 
 @ObjectType()
 export class CommentType {

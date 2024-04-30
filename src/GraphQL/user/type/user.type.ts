@@ -1,8 +1,6 @@
 import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Users } from "../entity/user.entity";
-import { BookType } from "src/book/type/book.type";
-import { RentType } from "src/rent/type/rent.type";
-import { CommentType } from "src/comment/type/comment.type";
+import { Users } from "../../../user/entity/user.entity";
+import { BookType } from "../../book/types/book.type";
 
 @ObjectType()
 export class CreateUserResponse {
@@ -33,18 +31,12 @@ export class UserType {
   @Field()
   image: string;
 
-  @Field()
+  @Field({ nullable: true })
   description: string;
 
-  @Field()
+  @Field({ nullable: true })
   favorite_book: number; 
 
-  @Field(type => CommentType)
-  comments?: CommentType;
-
-  @Field(type => RentType)
-  rents?: RentType;
-
-  @Field(type => BookType)
+  @Field(type => BookType, { nullable: true })
   book?: BookType;
 }

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { BookService } from "../book.service";
-import { CreateBookDTO } from "../inputs/create-book.input";
+import { CreateBookDTO } from "../../GraphQL/book/inputs/create-book.input";
 import { validate } from "class-validator";
 import { Books } from "../entity/book.entity";
 import { CloudinaryService } from "../../cloudinary/cloudinary.service";
