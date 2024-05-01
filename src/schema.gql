@@ -217,5 +217,7 @@ input CreateCommentInput {
 input CreateRentInput {
   book_id: Float!
   user_id: Float!
+  date_rented: String!
+  date_for_return: String!
   date_returned: String
 }

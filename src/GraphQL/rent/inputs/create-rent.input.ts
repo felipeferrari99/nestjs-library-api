@@ -13,6 +13,16 @@ export class CreateRentInput {
     @IsNumber()
     user_id: number;
 
+    @Field()
+    @IsNotEmpty()
+    @IsString()
+    date_rented: string;
+
+    @Field()
+    @IsNotEmpty()
+    @IsString()
+    date_for_return: string;
+
     @Field({ nullable: true }) 
     @IsOptional()
     @IsString()
