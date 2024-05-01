@@ -16,4 +16,8 @@ export class CreateCommentInput {
     @Field()
     @IsNumber()
     book_id: number
+
+    @Field()
+    @IsNumber()
+    user_id: number
 }

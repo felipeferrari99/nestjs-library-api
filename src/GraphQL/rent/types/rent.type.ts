@@ -23,7 +23,7 @@ export class RentType {
     user_id: number;
 
     @Field()
-    date_rented: string;
+    date_rented: Date;
 
     @Field(type => UserType)
     user?: UserType
