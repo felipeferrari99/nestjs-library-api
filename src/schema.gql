@@ -140,7 +140,6 @@ type Mutation {
   login(data: UserLoginInput!): CreateUserResponse!
   updatePartialUser(data: UpdateUserInput!, id: Float!): UserType!
   updateFavorite(id: Float!, user_id: Float!): UserType!
-  uploadFileUser(id: Float!): UserType!
   createAuthor(data: CreateAuthorInput!): AuthorType!
   updatePartialAuthor(data: UpdateAuthorInput!, id: Float!): AuthorType!
   uploadFileAuthor(id: Float!): AuthorType!

@@ -7,7 +7,6 @@ import { CreateUserInput } from "../GraphQL/user/inputs/create-user.input";
 import { JwtService } from "@nestjs/jwt";
 import { UpdateUserInput } from "../GraphQL/user/inputs/update-user.input";
 import { CloudinaryService } from "../cloudinary/cloudinary.service";
-import { CreateUserResponse } from "../GraphQL/user/type/user.type";
 
 @Injectable()
 export class UserService {

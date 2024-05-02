@@ -1,8 +1,6 @@
-import { UploadedFile, UseInterceptors } from "@nestjs/common";
 import { UserService } from "../../../user/user.service";
 import { UserLoginInput } from "../inputs/user-login.input";
 import { UpdateUserInput } from "../inputs/update-user.input";
-import { FileInterceptor } from "@nestjs/platform-express";
 import { Args, Mutation, Resolver, Query} from "@nestjs/graphql";
 import { CreateUserArgs } from "../args/create-user.args";
 import { CreateUserResponse, UserType } from "../type/user.type";
@@ -38,13 +36,6 @@ export class UserResolver {
         data.favorite_book = id
       }
       return this.userService.updateFavorite(user_id, data);
-    }
-
-    @Mutation(() => UserType)
-    @UseInterceptors(FileInterceptor('file'))
-    uploadFileUser(@Args('id') id: number, @UploadedFile() file: Express.Multer.File) {
-        const image = file;
-        return this.userService.updateImage(id, image)
     }
 
     @Query(() => UserType)

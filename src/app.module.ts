@@ -17,6 +17,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { ImageUploadModule } from './imageUpload/imageUpload.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { join } from 'path';
       CommentModule,
       RentsModule,
       CloudinaryModule,
+      ImageUploadModule,
 
       TypeOrmModule.forRoot({
       type: 'mysql',
