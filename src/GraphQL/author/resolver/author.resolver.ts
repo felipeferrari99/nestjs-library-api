@@ -30,13 +30,6 @@ export class AuthorResolver {
         return this.authorService.updatePartial(id, data);
     }
 
-    @Mutation(() => AuthorType)
-    @UseInterceptors(FileInterceptor('file'))
-    uploadFileAuthor(@Args('id') id: number, @UploadedFile() file: Express.Multer.File) {
-        const image = file;
-        return this.authorService.updateImage(id, image)
-    }
-
     @Mutation(() => Boolean)
     async deleteAuthor(@Args('id') id: number) {
         return {

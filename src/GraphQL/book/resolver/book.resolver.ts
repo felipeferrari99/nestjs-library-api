@@ -53,13 +53,6 @@ export class BookResolver {
         return this.bookService.updatePartial(id, data);
     }
 
-    @Mutation(() => BookType)
-    @UseInterceptors(FileInterceptor('file'))
-    uploadFileBook(@Args('id') id: number, @UploadedFile() file: Express.Multer.File) {
-        const image = file;
-        return this.bookService.updateImage(id, image)
-    }
-
     @Mutation(() => Boolean)
     async deleteBook(@Args('id') id: number) {
         return {
